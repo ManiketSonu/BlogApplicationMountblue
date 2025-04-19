@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Blog Post</title>
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #f0f4ff, #fafafa);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #1f2937;
+      background-color: #f3f4f6;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 35px;
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"],
+    textarea {
+      padding: 14px 16px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 1rem;
+      background-color: #f9fafb;
+      transition: border 0.3s, box-shadow 0.3s;
+      width: 100%;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+      outline: none;
+      background-color: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    button[type="submit"] {
+      background: #6366f1;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #4f46e5;
+      transform: translateY(-1px);
+    }
+
+    a {
+      margin-top: 20px;
+      text-align: center;
+      display: block;
+      color: #4b5563;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Create Blog Post</h1>
+
+  <form th:action="@{/posts}" method="post" th:object="${post}">
+    <label>Title:</label>
+    <input type="text" th:field="*{title}" required>
+
+    <label>Excerpt:</label>
+    <textarea th:field="*{excerpt}" required></textarea>
+
+    <label>Content:</label>
+    <textarea th:field="*{content}" required></textarea>
+
+    <label>Author:</label>
+    <input type="text" th:field="*{author}" required>
+
+    <label>Published At:</label>
+    <input type="datetime-local" th:field="*{publishedAt}" required>
+
+    <label>Tags:</label>
+    <input type="text" name="tagNames">
+
+    <label class="checkbox-label">
+      <input type="checkbox" th:field="*{published}">
+      Publish this post
+    </label>
+
+    <button type="submit">Create Post</button>
+  </form>
+
+  <a href="/posts">Back to Posts</a>
+</div>
+</body>
+</html>
